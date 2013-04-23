@@ -1,4 +1,0 @@
-Ariane
-======
-
-Ariane repository
