@@ -8,11 +8,10 @@ Or you can create an automatic documentation and use the templates provided by t
 
     #!/usr/bin/env python
 
-    from ariane import RestAPIDoc
+    from ariane import ariane
 
-    restApi = RestAPIDoc('api_description.txt')
-    restApi.generate('documentation.html', 'template.html')
-
+    restApiDoc = ariane.RestAPIDoc('api_description.txt')
+    restApiDoc.generate('documentation.html', 'templates/template.html')
 
 
 Overview
@@ -55,3 +54,25 @@ return :
     Content-Type: text/html; charset=UTF-8
     Server: TornadoServer/2.4.1
     Set-Cookie: user="ImFkbUluIg==|9364473586|0ef6536217a330f6574831ed672666ca0eaaeab4"; expires=Sat, 27 Apr 2013 12:26:27 GMT; Path=/
+
+
+History
+=========
+
+Ariane is the french translation for Ariadne
+Ariadne in Greek mythology, was the daughter of Minos king of Crete. She is mostly associated with mazes and labyrinths, due to her involvement in the myths of the Minotaur and Theseus.
+"Un fil d'Ariane" (Ariadne's String) is a french common name for a distance line, penetration line or guideline used by SCUBA divers.
+Ariadne's String is a string that helps guide someone through the Labyrinth of the Minotaur.
+
+Python Ariane package helps to understand your API, and helps you to offer a good documentation for your Restful API.
+
+
+License
+=========
+Ariane's License is the WTFPL – Do What the Fuck You Want to Public License.
+
+        DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+
+0. You just DO WHAT THE FUCK YOU WANT TO.
+

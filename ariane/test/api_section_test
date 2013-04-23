@@ -1,0 +1,4 @@
+[api]
+name = Ariane Api Description
+version = 1.0.0
+base_url = http://localhost:9999/api/
