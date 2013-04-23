@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Ariane Documentation</title>
+</head>
+<body>
+<h1>{{api.name}}</h1>
+[ base url: {{api.base_url}} , api version: {{api.version}} ]
+<br>
+{% for resource in resources %}
+    {% if resource.type == "GET" %}GET
+    {% elif resource.type == "POST" %}POST
+    {% elif resource.type == "PUT" %}PUT
+    {% else%}DELETE{% endif %}
+<br>
+    {{resource.url}}
+    {{resource.description}}
+<br>
+    {% if resource.input %}<h5>input</h5>
+    <pre>{{resource.input}}</pre>{% endif %}
+
+    {% if resource.return %}<h5>Return</h5>
+    {{resource.return}}{% endif %}
+
+    {% endfor %}
+</body>
+</html>
+
+

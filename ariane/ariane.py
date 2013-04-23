@@ -1,4 +1,5 @@
 import ConfigParser
+from jinja2 import Environment, PackageLoader
 
 __author__ = 'gvincent'
 
@@ -6,10 +7,10 @@ ARIANE_SECTION = [('api', {}), ('code_status', {})]
 
 
 class RestAPIDoc(object):
-    def __init__(self, documentation_file=None, sections=None):
-        if not sections:
-            for (section, initial_value) in ARIANE_SECTION:
-                        self.__dict__[section] = initial_value
+    def __init__(self, documentation_file=None):
+
+        for (section, initial_value) in ARIANE_SECTION:
+            self.__dict__[section] = initial_value
 
         self.is_valid = False
         try:
@@ -38,7 +39,38 @@ class RestAPIDoc(object):
             self.error_message = "problem occurs during parsing"
             raise
 
+        try:
+            self.extract_resources(description_file)
+        except:
+            self.is_valid = False
+            self.error_message = "problem occurs during parsing"
+            raise
+
     def extract_ariane_sections(self, description_file):
         for section, initial_value in ARIANE_SECTION:
             for item in description_file.items(section):
                 self.__dict__[section][item[0]] = item[1]
+
+    def extract_resources(self, description_file):
+        self.resources = []
+        for section in self.difference_between(self.get_ariane_section(), description_file.sections()):
+            r = section.split(':')
+            s = dict(name=r[0], type=r[1])
+            for item in description_file.items(section):
+                s[item[0]] = item[1]
+            self.resources.append(s)
+
+    def difference_between(self, list1, list2):
+        s = set(list1)
+        return [x for x in list2 if x not in s]
+
+    def get_ariane_section(self):
+        return [k for k, v in ARIANE_SECTION]
+
+    def print_documentation(self, save_file, template):
+        env = Environment(loader=PackageLoader('ariane', 'templates'))
+        template = env.get_template(template)
+        print self.resources
+        print self.error_message
+        with open(save_file, 'w') as doc:
+            doc.write(template.render(dict(resources=self.resources, api=self.api, code_status=self.code_status)))
