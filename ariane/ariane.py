@@ -70,7 +70,5 @@ class RestAPIDoc(object):
     def print_documentation(self, save_file, template):
         env = Environment(loader=PackageLoader('ariane', 'templates'))
         template = env.get_template(template)
-        print self.resources
-        print self.error_message
         with open(save_file, 'w') as doc:
             doc.write(template.render(dict(resources=self.resources, api=self.api, code_status=self.code_status)))

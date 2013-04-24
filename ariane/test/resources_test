@@ -1,16 +1,6 @@
 [api]
-name = Ariane Api Description
-version = 1.0.0
-base_url = http://localhost:9999/api/
 
 [code_status]
-400 = Bad input parameter. Error message should indicate which one and why.
-401 = Bad or expired token. This can happen if the user or CSI-web revoked or expired an access token. To fix, you should re-authenticate the user.
-403 = Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won't help here.
-404 = File or folder not found at the specified path.
-405 = Request method not expected (generally should be GET or POST).
-503 = Your app is making too many requests and is being rate limited. 503s can trigger on a per-app or per-user basis.
-5xx = Server error.
 
 [auth:GET]
 url = /auth/logout/

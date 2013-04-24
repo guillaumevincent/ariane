@@ -1,13 +1,17 @@
 from distutils.core import setup
+from ariane import __version__
 
 setup(
     name='Ariane',
-    version='0.0.2',
+    version=__version__,
     author='Guillaume Vincent',
     author_email='vincent.guillaume.inp@gmail.com',
     packages=['ariane', 'ariane.test'],
     url='https://github.com/guillaumevincent/Ariane',
-    license='WTFPL - DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE',
+    license='wtfpl - Do what the fuck you want to public license',
     description='Ariane is a python package for describing, producing and visualizing RESTful APIs',
     long_description=open('README').read(),
+    install_requires=[
+        "jinja2 >= 0.7.6",
+    ],
 )
