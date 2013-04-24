@@ -1,3 +1,4 @@
+import os
 import unittest
 from ariane import ariane
 
@@ -49,7 +50,7 @@ class TestPrintDocumentation(unittest.TestCase):
 
     def test_print(self):
         restApiDoc = ariane.RestAPIDoc('resources_test')
-        restApiDoc.print_documentation('documentation.html', 'template.html')
+        restApiDoc.print_documentation('documentation.html', os.getcwd(), 'template.html')
 
 if __name__ == '__main__':
     unittest.main()

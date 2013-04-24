@@ -1,5 +1,5 @@
 import ConfigParser
-from jinja2 import Environment, PackageLoader
+from jinja2 import Environment, FileSystemLoader
 
 __author__ = 'gvincent'
 
@@ -67,8 +67,12 @@ class RestAPIDoc(object):
     def get_ariane_section(self):
         return [k for k, v in ARIANE_SECTION]
 
-    def print_documentation(self, save_file, template):
-        env = Environment(loader=PackageLoader('ariane', 'templates'))
-        template = env.get_template(template)
+    def print_documentation(self, save_file, template_path, template_name):
+        env = Environment()
+        env.loader = FileSystemLoader(template_path)
+        template = env.get_template(template_name)
+        rendering = template.render(dict(resources=self.resources,
+                                         api=self.api,
+                                         code_status=self.code_status))
         with open(save_file, 'w') as doc:
-            doc.write(template.render(dict(resources=self.resources, api=self.api, code_status=self.code_status)))
+            doc.write(rendering)
