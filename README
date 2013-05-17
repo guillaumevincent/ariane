@@ -10,7 +10,8 @@ Or you can create an automatic documentation and use the templates provided by t
 
     from ariane import ariane
 
-    restApiDoc = ariane.RestAPIDoc('api_description.txt')
+    doc = ariane.Documentation("api_documentation.txt")
+    print doc.__dict__
     restApiDoc.generate('documentation.html', 'templates/template.html')
 
 
@@ -25,32 +26,32 @@ more information: https://pypi.python.org/pypi/Ariane
 Overview
 =========
 
-your api_description.txt looks like this and use ConfigParser file format
+your api_documentation.txt looks like a config file
 
 
 [api]
-name = Ariane Api Description
-version = 1.0.0
-base_url = http://localhost:9999/api/
+name : Ariane Api Description
+version : 1.0.0
+base_url : http://localhost:9999/api/
 
 [code_status]
-400 = Bad input parameter. Error message should indicate which one and why.
-401 = Bad or expired token. This can happen if the user or Ariane revoked or expired an access token. To fix, you should re-authenticate the user.
-403 = Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won't help here.
-404 = File or folder not found at the specified path.
-405 = Request method not expected (generally should be GET or POST).
-503 = Your app is making too many requests and is being rate limited. 503s can trigger on a per-app or per-user basis.
-5xx = Server error.
+400 : Bad input parameter. Error message should indicate which one and why.
+401 : Bad or expired token. This can happen if the user or Ariane revoked or expired an access token. To fix, you should re-authenticate the user.
+403 : Bad OAuth request (wrong consumer key, bad nonce, expired timestamp...). Unfortunately, re-authenticating the user won't help here.
+404 : File or folder not found at the specified path.
+405 : Request method not expected (generally should be GET or POST).
+503 : Your app is making too many requests and is being rate limited. 503s can trigger on a per-app or per-user basis.
+5xx : Server error.
 
 [auth:GET]
-url = /auth/logout/
-description = clear an existing cookie in the session
-input =
-return =
+url : /auth/logout/
+description : clear an existing cookie in the session
+input :
+return :
 
 [auth:POST]
-url = /auth/login/
-description = create a cookie in the session
+url : /auth/login/
+description : create a cookie in the session
 input :
     {
         "username": "",
@@ -66,16 +67,9 @@ return :
 Tutorial
 ========
 
-1. create your api description file
+1. create your api description file (api_documentation.txt)
 All information in this file is saved in sections. A section is shown with brackets
     [section]
-
-There are two mandatory sections. If you do not want to use, you can simply remove the fields in the section:
-    [api]
-    #nothing here
-
-    [code_status]
-    #nothing here
 
 All resources are describe is section too. You must add the HTML verbs after two points in section
     [resource:HTML_VERB]
@@ -85,49 +79,28 @@ describe the POST method on dog resource
 you can add all the information you want under resources section:
 
     [dog:POST]
-    url = /dog/
+    url = dog/
     description = create a dog
     input :
         {
-            "name": "",
-            "birthdate": ""
+            "name": "pilou",
         }
     return :
         HTTP/1.1 201 CREATED
-    custom_field = Custom field
 
-All information on several lines (eg input parameters) must be preceded by a colon (:) and indented
-Good
-    input :
-        {
-            "name": "",
-            "birthdate": ""
-        }
-Bad
-    input =
-    {
-        "name": "",
-        "birthdate": ""
-    }
-
-2. Get all the information about resources in RestAPIDoc object:
+2. Get all the information about resources in Documentation object:
 
     from ariane import ariane
-    restApiDoc = ariane.RestAPIDoc('api_description_file')
-    print restApiDoc.resources[0]["type"]
-    >> POST
-    print restApiDoc.resources[0]["custom_field"]
-    >> Custom field
+    doc = ariane.Documentation("api_documentation.txt")
+    print doc.__dict__
+    print doc.dog
 
 
 3. handle errors
     from ariane import ariane
-    restApiDoc = ariane.RestAPIDoc('api_description_file')
-    if not restApiDoc.is_valid():
-        print restApiDoc.error_message
-
-4. all the fields available in RestAPIDoc object are:
-['api', 'code_status', 'error_message', 'is_valid', 'resources']
+    doc = ariane.Documentation("unknown_file.txt")
+    if not doc.is_valid():
+        print doc.status_code, doc.is_valid, doc.error_message
 
 
 History

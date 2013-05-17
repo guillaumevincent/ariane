@@ -1,6 +1,6 @@
 import os
 import unittest
-from ariane import ariane
+from ariane_old import ariane
 
 __author__ = 'gvincent'
 
