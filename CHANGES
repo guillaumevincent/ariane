@@ -2,3 +2,4 @@ v0.0.1, 22/04/2013 -- Initial release.
 v0.0.2, 23/04/2013 -- Remove Jinja2 dependence
 v0.0.3, 24/04/2013 -- Update documentation
 v0.0.4, 24/04/2013 -- Fixbug print_documentation with custom template
+v0.0.5, 24/05/2013 -- handle utf-8 ini file with special characters

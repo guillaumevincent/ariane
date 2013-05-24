@@ -1,5 +1,5 @@
 from distutils.core import setup
-from ariane_old import __version__
+from ariane import __version__
 
 setup(
     name='Ariane',
