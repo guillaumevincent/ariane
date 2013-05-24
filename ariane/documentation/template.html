@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+<h1>{{doc.api.name}}</h1>
+[ base url: {{doc.api.base_url}} , api version: {{doc.api.version}} ]
+<br>
+
+
+{% for resource in doc.resources %}
+    <dl>
+    {% for key, value in resource.iteritems() %}
+        <dt>{{ key }}</dt>
+        <dd>{{ value }}</dd>
+    {% endfor %}
+    </dl>
+{% endfor %}
+
+
+
+</body>
+</html>
+
+
